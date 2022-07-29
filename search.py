@@ -17,7 +17,9 @@ In search.py, you will implement generic search algorithms which are called by
 Pacman agents (in searchAgents.py).
 """
 
+from audioop import add
 import util
+from nodeClass import Node
 
 class SearchProblem:
     """
@@ -82,15 +84,114 @@ def depthFirstSearch(problem: SearchProblem):
     To get started, you might want to try some of these simple commands to
     understand the search problem that is being passed in:
     """
+    "*** YOUR CODE HERE ***"
     print("Start:", problem.getStartState())
     print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
-    "*** YOUR CODE HERE ***"
+    frontier = util.Stack()
+    frontier.push(Node(problem.getStartState(), None))
+    visited = []
+    returnList = []
+    goal_found = False
+
+    while (goal_found == False):
+        currentNode = frontier.pop()
+        print("Current Node:", currentNode.rawState)
+        print("Is current node goal?:", problem.isGoalState(currentNode.location))
+        if (problem.isGoalState(currentNode.location)):
+            goal_found = True
+            print("GOAL FOUND")
+            from game import Directions
+            n = Directions.NORTH
+            e = Directions.EAST
+            s = Directions.SOUTH
+            w = Directions.WEST
+            while(currentNode.hasParent() == True):
+                if (currentNode.direction == 'North'):
+                    returnList.append(n)
+                elif (currentNode.direction == 'East'):
+                    returnList.append(e)
+                elif (currentNode.direction == 'South'):
+                    returnList.append(s)
+                elif (currentNode.direction == 'West'):
+                    returnList.append(w)
+                currentNode = currentNode.parent
+            returnList.reverse()
+            print("length:", len(returnList))
+            return returnList
+        else:
+            visited.append(currentNode)
+            for successor in problem.getSuccessors(currentNode.location):
+                childNode = Node(successor, currentNode)
+                print("Child", childNode.rawState)
+                addToFrontier = True
+                for past in visited:
+                    if (past.rawState == childNode.rawState):
+                        addToFrontier = False
+                        break
+                for future in frontier.list:
+                    if (future.rawState == childNode.rawState):
+                        addToFrontier = False
+                        break
+                if(addToFrontier == True):
+                    print("child added to frontier.")
+                    frontier.push(childNode)
     util.raiseNotDefined()
 
 def breadthFirstSearch(problem: SearchProblem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
+    print("Start:", problem.getStartState())
+    print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
+    print("Start's successors:", problem.getSuccessors(problem.getStartState()))
+    frontier = util.Queue()
+    frontier.push(Node(problem.getStartState(), None))
+    visited = []
+    returnList = []
+    goal_found = False
+
+    while (goal_found == False):
+        currentNode = frontier.pop()
+        print("Current Node:", currentNode.rawState)
+        print("Is current node goal?:", problem.isGoalState(currentNode.location))
+        if (problem.isGoalState(currentNode.location)):
+            goal_found = True
+            print("GOAL FOUND")
+            from game import Directions
+            n = Directions.NORTH
+            e = Directions.EAST
+            s = Directions.SOUTH
+            w = Directions.WEST
+            while(currentNode.hasParent() == True):
+                if (currentNode.direction == 'North'):
+                    returnList.append(n)
+                elif (currentNode.direction == 'East'):
+                    returnList.append(e)
+                elif (currentNode.direction == 'South'):
+                    returnList.append(s)
+                elif (currentNode.direction == 'West'):
+                    returnList.append(w)
+                currentNode = currentNode.parent
+            returnList.reverse()
+            print("length:", len(returnList))
+            return returnList
+        else:
+            visited.append(currentNode)
+            for successor in problem.getSuccessors(currentNode.location):
+                childNode = Node(successor, currentNode)
+                print("Child", childNode.rawState)
+                addToFrontier = True
+                for past in visited:
+                    if (past.rawState == childNode.rawState):
+                        addToFrontier = False
+                        break
+                for future in frontier.list:
+                    if (future.rawState == childNode.rawState):
+                        addToFrontier = False
+                        break
+                if(addToFrontier == True):
+                    print("child added to frontier.")
+                    frontier.push(childNode)
     util.raiseNotDefined()
 
 def uniformCostSearch(problem: SearchProblem):
