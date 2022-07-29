@@ -85,9 +85,6 @@ def depthFirstSearch(problem: SearchProblem):
     understand the search problem that is being passed in:
     """
     "*** YOUR CODE HERE ***"
-    print("Start:", problem.getStartState())
-    print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
-    print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     frontier = util.Stack()
     frontier.push(Node(problem.getStartState(), None))
     visited = []
@@ -96,11 +93,8 @@ def depthFirstSearch(problem: SearchProblem):
 
     while (goal_found == False):
         currentNode = frontier.pop()
-        print("Current Node:", currentNode.rawState)
-        print("Is current node goal?:", problem.isGoalState(currentNode.location))
         if (problem.isGoalState(currentNode.location)):
             goal_found = True
-            print("GOAL FOUND")
             from game import Directions
             n = Directions.NORTH
             e = Directions.EAST
@@ -117,13 +111,11 @@ def depthFirstSearch(problem: SearchProblem):
                     returnList.append(w)
                 currentNode = currentNode.parent
             returnList.reverse()
-            print("length:", len(returnList))
             return returnList
         else:
             visited.append(currentNode)
             for successor in problem.getSuccessors(currentNode.location):
                 childNode = Node(successor, currentNode)
-                print("Child", childNode.rawState)
                 addToFrontier = True
                 for past in visited:
                     if (past.rawState == childNode.rawState):
@@ -134,16 +126,11 @@ def depthFirstSearch(problem: SearchProblem):
                         addToFrontier = False
                         break
                 if(addToFrontier == True):
-                    print("child added to frontier.")
                     frontier.push(childNode)
-    util.raiseNotDefined()
 
 def breadthFirstSearch(problem: SearchProblem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    print("Start:", problem.getStartState())
-    print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
-    print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     frontier = util.Queue()
     frontier.push(Node(problem.getStartState(), None))
     visited = []
@@ -152,11 +139,8 @@ def breadthFirstSearch(problem: SearchProblem):
 
     while (goal_found == False):
         currentNode = frontier.pop()
-        print("Current Node:", currentNode.rawState)
-        print("Is current node goal?:", problem.isGoalState(currentNode.location))
         if (problem.isGoalState(currentNode.location)):
             goal_found = True
-            print("GOAL FOUND")
             from game import Directions
             n = Directions.NORTH
             e = Directions.EAST
@@ -173,13 +157,11 @@ def breadthFirstSearch(problem: SearchProblem):
                     returnList.append(w)
                 currentNode = currentNode.parent
             returnList.reverse()
-            print("length:", len(returnList))
             return returnList
         else:
             visited.append(currentNode)
             for successor in problem.getSuccessors(currentNode.location):
                 childNode = Node(successor, currentNode)
-                print("Child", childNode.rawState)
                 addToFrontier = True
                 for past in visited:
                     if (past.rawState == childNode.rawState):
@@ -190,9 +172,7 @@ def breadthFirstSearch(problem: SearchProblem):
                         addToFrontier = False
                         break
                 if(addToFrontier == True):
-                    print("child added to frontier.")
                     frontier.push(childNode)
-    util.raiseNotDefined()
 
 def uniformCostSearch(problem: SearchProblem):
     """Search the node of least total cost first."""
