@@ -140,11 +140,11 @@ def breadthFirstSearch(problem: SearchProblem):
                 childNode = Node(successor, currentNode)
                 addToFrontier = True
                 for past in visited:
-                    if (past.rawState == childNode.rawState):
+                    if (past.location == childNode.location):
                         addToFrontier = False
                         break
                 for future in frontier.list:
-                    if (future.rawState == childNode.rawState):
+                    if (future.location == childNode.location):
                         addToFrontier = False
                         break
                 if(addToFrontier == True):
