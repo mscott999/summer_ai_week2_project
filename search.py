@@ -95,20 +95,8 @@ def depthFirstSearch(problem: SearchProblem):
         currentNode = frontier.pop()
         if (problem.isGoalState(currentNode.location)):
             goal_found = True
-            from game import Directions
-            n = Directions.NORTH
-            e = Directions.EAST
-            s = Directions.SOUTH
-            w = Directions.WEST
             while(currentNode.hasParent() == True):
-                if (currentNode.direction == 'North'):
-                    returnList.append(n)
-                elif (currentNode.direction == 'East'):
-                    returnList.append(e)
-                elif (currentNode.direction == 'South'):
-                    returnList.append(s)
-                elif (currentNode.direction == 'West'):
-                    returnList.append(w)
+                returnList.append(currentNode.direction)
                 currentNode = currentNode.parent
             returnList.reverse()
             return returnList
@@ -141,20 +129,8 @@ def breadthFirstSearch(problem: SearchProblem):
         currentNode = frontier.pop()
         if (problem.isGoalState(currentNode.location)):
             goal_found = True
-            from game import Directions
-            n = Directions.NORTH
-            e = Directions.EAST
-            s = Directions.SOUTH
-            w = Directions.WEST
             while(currentNode.hasParent() == True):
-                if (currentNode.direction == 'North'):
-                    returnList.append(n)
-                elif (currentNode.direction == 'East'):
-                    returnList.append(e)
-                elif (currentNode.direction == 'South'):
-                    returnList.append(s)
-                elif (currentNode.direction == 'West'):
-                    returnList.append(w)
+                returnList.append(currentNode.direction)
                 currentNode = currentNode.parent
             returnList.reverse()
             return returnList
